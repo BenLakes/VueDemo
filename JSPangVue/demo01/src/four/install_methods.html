@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实例方法</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+   <div id="app">
+     {{msg}}
+     <button onclick="appData()">调用js方法</button>
+     <button onclick="app.$options.method.add()">调用Vue实例方法1</button>
+   </div>
+   <script type="text/javascript">
+   /*
+      vue 实例方法  
+      $mount 用来挂载我们扩展的， 挂载到 DOM 上
+      $destroy 卸载方法
+      $forceUpdate() 更新方法
+      $nextTick() 数据修改方法 相当于一个钩子函数， 
+          跟构造器里的updated 生命周期很像
+   */
+     function appData(){
+       console.log(app);
+       
+     }
+     var app = new Vue({
+        el: '#app',
+        data:{
+          msg: 'Hello World1'
+        },
+        // mounted:function(){
+        //   $('#app').html('我是被jQuery操作的。');
+        // },
+        method:{
+          add:function(){
+            console.log('add log');
+          }
+        }
+      });
+   </script>
+</body>
+</html>

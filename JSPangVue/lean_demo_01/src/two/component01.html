@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 01</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <!-- 全局 API 并不是在构造器里，
+    而是先声明全局变量  或 直接在 Vue 上定义一些新功能。 
+    -->
+  <div id="app">
+    <todo-item :global-count="globalCount"></todo-item>
+    <local :local-count="localCount"></local>
+  </div>
+ 
+  <script type="text/javascript">
+    // 全局组件
+    Vue.component("todoItem",{
+      props:["globalCount"],
+       template: `<div>{{globalCount}}</div>` 
+    });
+    var local = {
+      props:["localCount"],
+      template: `<div>{{localCount}}</div>`
+    }
+    var vm = new Vue({
+      el: "#app",
+      components: {
+        local
+      },
+      data() {
+        return {
+          globalCount: 1,
+          localCount: 2
+        }
+      },
+      methods: {
+        add() {
+          this.count++;
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

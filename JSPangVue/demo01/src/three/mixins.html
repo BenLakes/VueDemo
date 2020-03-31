@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mixins</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+   <div id="app">
+     {{count}}
+     <p><button @click="countAdd(2)">add</button></p>
+   </div>
+   <a1></a1>
+   <script type="text/javascript">
+  /*
+   Mixins 一般有两种用途 :
+   1. 在已经写好了构造器后，需要增加方法或临时的活动时使用的方法，
+        这时用混入会减少源代码的污染  避免错误发生
+   2. 很多地方都会用到的公共的方法，用混入方法减少代码量，实现代码重用     
+     全局混入的执行顺序要前与 构造器混入的方法
+   */
+  // 全局的Mixins 方法
+  Vue.mixin({
+    updated:function(){
+      console.log(`全局混入的mixin方法${app.count}`);
+    }
+  })
+  //  额外临时加入的 用于显示日志
+  var addLog ={
+    updated:function(){
+      console.log(`数据发生变化，更新后的值${this.count}.`);
+    }
+  }
+   var app = new Vue({
+    el: '#app',
+    data:{
+      msg:'Hello Vue !',
+      count: 1,
+    },
+    updated:function(){
+      console.log(`我是构造器里面的Updated 方法`);
+      
+    },
+    mixins:[addLog],
+    methods:{
+      countAdd:function(num){
+        this.count = this.count + num;
+      }
+    }
+
+  });
+   </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Methods 选项</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+   <div id="app">
+     {{count}}
+     <p><button @click="countAdd(2)">add</button></p>
+     <p><btn @click.native="countAdd(3)">btn add</btn></p>
+   </div>
+   <script type="text/javascript">
+   var btn = Vue.component('btn',{
+     template: `<button>组件Add</button>`
+   })
+  // computed 的作用主要是对原数据进行改造输出， 包括数据格式，大小转换，顺序重排等
+  var app = new Vue({
+    el: '#app',
+    data:{
+      msg:'Hello Vue !',
+      count: 1,
+    },
+    components:{
+      btn
+    },
+    methods:{
+      countAdd:function(num){
+        this.count = this.count + num;
+      }
+    }
+
+  });
+   </script>
+</body>
+</html>

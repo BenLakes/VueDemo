@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3种 template 写法 Demo  后续还有 XXX.vue 模板的写法</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <!-- 全局 API 并不是在构造器里，
+    而是先声明全局变量  或 直接在 Vue 上定义一些新功能。 
+    -->
+  <div id="app">
+
+  </div>
+  <template id="demo1">
+    <div style="color:red">{{count}}</div>
+  </template>
+
+  <script type="x-template" id="demo2">
+     <div style="color: blue">{{count}}</div> 
+  </script>
+
+  <script type="text/javascript">
+
+
+    var vm = new Vue({
+      el: "#app",
+      // template: "#demo1",
+      // template: `<div style="color: green">{{count}}</div>`,
+      template: "#demo2",
+      data() {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        add() {
+          this.count++;
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

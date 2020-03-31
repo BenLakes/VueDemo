@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-if_v-show Demo</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+<body>
+   <div id="app">
+     <div v-if="isLogin">您好  Lee</div>
+     <div v-else>请登录后在操作</div>
+     <div v-show="isLogin">show 方式</div>
+     <button @click="changeLoginStatus">切换登录状态</button>
+   </div>
+
+   <script type="text/javascript">
+     var vm =  new Vue({
+       el: "#app",
+       data(){
+         return {
+           isLogin: false
+         }
+       },
+       methods: {
+         changeLoginStatus(){
+           this.isLogin = !this.isLogin;
+         }
+       }
+     })
+   </script>
+</body>
+</html>

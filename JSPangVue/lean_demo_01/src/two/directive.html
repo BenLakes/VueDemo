@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Directive Demo</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <!-- 全局 API 并不是在构造器里，
+    而是先声明全局变量  或 直接在 Vue 上定义一些新功能。 Vue内置了一些全局API，
+     如 Vue.directive   在构造器外部用Vue提供给我们的API函数定义新功能-->
+  <div id="app">
+    <div v-jspang="color" id="aaa">
+      {{num}}
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  // 自定义指令
+  Vue.directive('jspang',{
+    /*
+      el 所绑定的元素， 直接操作DOM 可获取 dom ID  
+      binding 指令的很多信息 指令名字  值 表达式 等信息
+      vnode Vue 编译生成的虚拟节点
+    */
+    bind(el, binding, vnode){
+      console.log("bind");
+      //  el.innerHTML = 'name:' + JSON.stringify(binding.name) + '<br/>' +
+      //                   'value' + JSON.stringify(binding.value) + '<br/>' +
+      //                   'expression:' + JSON.stringify(binding.expression) + '<br/>' +
+      //                   'el:' + el.id     
+      el.style = 'color:' + binding.value
+    },
+    inserted(){
+        console.log("inserted");
+    },
+    update(el, binding, vnode){
+      el.style = 'color:' + binding.value
+      console.log("update");
+    },
+    componentUpdated(){
+      console.log("componentUpdated");
+    },
+    unbind(){
+      console.log("unbind");
+    }
+  });
+    var vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+          color: 'green',
+          num: 1
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

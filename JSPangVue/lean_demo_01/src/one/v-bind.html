@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-bind Demo</title>
+  <script src="../../assets/vue.js"></script>
+  <style>
+    .classA{
+      color: red;
+    }
+    .classB{
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+  <!-- v-bind 是处理 HTML 中的标签属性的 也是一个标签 -->
+   <div id="app">
+      <img :src="imgSrc"/>
+      <a :href="url">百度</a>
+      <div :class="classA">1、绑定classA</div>
+      <div :class="{classA: isShowStyle}">2、绑定classA 判断</div>
+      <div :class="[classA, classB]">3、绑定class 中数组</div>
+      <div :class="isShowStyle? classA : classB">4、绑定class 中三元表达式判断</div>
+      <div :style="{color: 'red', fontSize: '40px'}">5、绑定style</div>
+      <div :style="styleObj">6、绑定styleObj 对象</div>
+   </div>
+
+   <script type="text/javascript">
+     var vm =  new Vue({
+       el: "#app",
+       data(){
+         return {
+           imgSrc: "https://www.baidu.com/img/bd_logo1.png",
+           url: "https://www.baidu.com",
+           classA: "classA",
+           classB: "classB",
+           isShowStyle: false,
+           styleObj:{
+             fontSize: '50px',
+             color: 'green'
+           }
+         }
+       },
+       methods: {
+         changeLoginStatus(){
+           this.isLogin = !this.isLogin;
+         }
+       }
+     })
+   </script>
+</body>
+</html>

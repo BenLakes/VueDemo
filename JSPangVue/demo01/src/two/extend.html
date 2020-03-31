@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extend 构造器的延伸</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <author></author>
+    <author1>123</author1>
+    <span id="sp"></span>
+  </div>
+  <script type="text/javascript">
+  /*
+    Vue.extend 返回的是一个 扩展实例构造器， 也就是预设了部分选项的Vue实例构造器
+    常在Vue.component 用来 生成的组件
+  */
+    var authorExtend = Vue.extend({
+      template: "<p><a :href='authorUrl'>authorName</a></p>",
+      data: function () {
+        return {
+          authorName: 'JSPang',
+          authorUrl: 'http://www.baidu.com'
+        }
+      }
+    });
+
+    // 挂载到  id  DOM 节点
+    new authorExtend().$mount('#sp');
+    // 挂载到  author  DOM 节点
+    new authorExtend().$mount('author');
+  </script>
+</body>
+
+</html>

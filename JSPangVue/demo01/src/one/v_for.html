@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-for</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div>{{msg}}</div>
+    <ul>
+      <!-- v-for 指令是循环渲染一组data中的数组 -->
+      <li v-for='item of sortItems'>{{item}}</li>
+    </ul>
+    <ul>
+      <!-- v-for 指令是循环渲染一组data中的数组 -->
+      <li v-for='student of sortStudent'>{{student.name}} - {{student.age}}</li>
+    </ul>
+  </div>
+  <script type="text/javascript">
+    new Vue({
+      el: '#app',
+      data: {
+        msg:'显示不',
+        items: [20, 23, 18, 65, 32, 19, 5, 56, 41],
+        students: [{ name: 'jspang', age: 32 },
+        { name: 'Panda', age: 30 },
+        { name: 'PanPaN', age: 21 },
+        { name: 'King', age: 45 }]
+      },
+      methods: {
+        sortNumber(a, b) {
+          return a - b;
+        },
+        sortByKey(arr, key){
+          return arr.sort(function(a,b){
+            var x = a[key];
+            var y = b[key];
+            return x<y?-1:1;
+          });
+        }
+      },
+      // 计算值属性 用于  构造 需要显示的数据格式
+      // 不构造会污染原来的数据源
+      computed: {
+        sortItems: function () {
+          return this.items.sort(this.sortNumber);
+        },
+        sortStudent: function(){
+          return this.sortByKey(this.students, 'age')
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

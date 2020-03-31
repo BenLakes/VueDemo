@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropsData</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+   <div id="app">
+     {{msg}}
+   </div>
+   <a1></a1>
+   <script type="text/javascript">
+  //  propsData 在开发中使用的并不多  用于在全局扩展中进行数据传递 extend 中
+      var header_a = Vue.extend({
+          template: `<p>{{message}}---{{a}}</p>`,
+          data:function(){
+            return {
+              message: 'Hello I am Header'
+            }
+          },
+          props:['a']
+      });
+      new header_a({propsData:{a: 'a1'}}).$mount('a1')
+   </script>
+</body>
+</html>

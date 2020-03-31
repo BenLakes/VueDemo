@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>methods Demo</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    methods  用于编写Vue 实例的函数
+    -->
+  <div id="app">
+    {{a}}
+    <p><button @click="add($event,'2')">add</button></p>
+    <!-- native 调用构造器里的add 方法 -->
+    <btn @click.native="add($event, '4')"></btn>
+    <button onclick="vm.add('6')">外部调用构造器里的方法</button>
+  </div>
+
+  <script type="text/javascript">
+   
+   var btn = {
+     template: `<button>组件Add</button>`
+   }
+
+    var vm = new Vue({
+      el: "#app",
+      components:{
+         btn 
+      },
+      data() {
+        return {
+          a: 100,
+        }
+      },
+      methods: {
+        add(val, e){
+          console.log(val, e)
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>

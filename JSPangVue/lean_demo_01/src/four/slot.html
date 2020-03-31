@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>slot Demo</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+<body>
+  <!-- 
+    slot 是自定义标签内容的扩展 
+    也就是用slot 就可以在用自定义组件时传递  给组件内容，组件接收内容并输出
+  -->
+  <div id="app">
+    <jspang>
+      <span slot="blogUrl">{{jspangData.bolgUrl}}</span>
+      <span slot="netName">{{jspangData.netName}}</span>
+      <span slot="skill">{{jspangData.skill}}</span>
+    </jspang>
+  </div>
+
+  <script>
+    Vue.component("jspang", {
+      template: `
+        <div>
+          <p>博客地址：<slot name="blogUrl"></slot></p>
+          <p>网名：<slot name="netName"></slot></p>
+          <p>技术类型：<slot name="skill"></slot></p>
+          </div>
+      `
+    })
+      var  app = new Vue({
+        el: "#app",
+        data:{
+          jspangData:{
+            bolgUrl: "https://www.baidu.com",
+            netName: "技术胖",
+            skill: "Web前端"
+          }
+        }
+      })
+
+  </script>
+</body>
+</html>

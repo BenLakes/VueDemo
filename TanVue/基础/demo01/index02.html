@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Demo02</title>
+  <style>
+    .items {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    {{msg}}
+    <div>
+      <input type="text" v-model='info' />
+      <button @click='btnClick'>添加</button>
+    </div>
+    <ul>
+      <!-- <li v-for="item of list">{{item}}</li> -->
+      <todo-item v-for="item of list" :item="item"></todo-item>
+    </ul>
+
+    <todo-list>
+      <todo-item1 v-for="item in delList" @delete="delete1" 
+      :key1="item.key" :title="item.title" :del="item.del">
+        <template v-slot:pre-icon2.6="{value}">
+          <!-- Vue 2.6 后的写法 -->
+          <span>2.6前置图片{{value}}</span>
+        </template>
+        <template v-slot:suf-icon2.6>
+          <span>2.6后置图片</span>
+        </template>
+        <!-- slot="pre-icon" 2.5<= Vue 版本 写法 -->
+        <span slot="pre-icon2.5" slot-scope="value1">2.5前置图片</span>
+        <!-- <span slot="suf-icon2.5">2.5后置图片</span> -->
+      </todo-item1>
+    </todo-list>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <!-- 默认插槽   具名插槽  作用域插槽  发生在自定义Vue 组件中 Vue.component -->
+  <script>
+    // 自定义Vue 组件
+    Vue.component('todo-item', {
+      props: ['item'],
+      template: '<li class="items">{{item}}</li>',
+    });
+
+    Vue.component('todo-item1', {
+      props: {
+        title: String,
+        del: {
+          type: Boolean,
+          default: false
+        },
+        key1: String
+      },
+      methods: {
+        handleDel() {
+          console.log('点击了删除按钮');
+          this.$emit('delete', this.key1);
+        }
+      },
+      data: () => {
+        return {
+          value: Math.random(),
+          value1: Math.random(),
+        }
+    
+    },
+      template: `
+      <li >
+        <slot name="pre-icon2.6" :value="value"></slot>
+        <slot name="pre-icon2.5" :value1="value1"></slot>
+        <span v-if="!del">{{title}}</span>
+        <span v-else style="text-decoration: line-through;">{{title}}</span>
+        <slot name="suf-icon2.6"></slot>
+        <slot name="suf-icon2.5">😁</slot>
+        <button @click="handleDel" v-show="del">{{title}}</button>
+      </li>
+      `,
+    });
+
+    Vue.component('todo-list', {
+      props: {
+        msg: String,
+        delList1: {
+          type: Array,
+          default: () => []
+        }
+      },
+      mounted: () => {
+        console.log(this)
+      },
+      methods: {
+        delete1(key) {
+          console.log(key);
+          // this.msg = '123'
+          this.delList = this.delList.filter(item => item.key !== key)
+
+        }
+      },
+      template: `
+      <ul>
+        //默认插槽
+          <slot ></slot>
+    </ul>
+      `,
+      // data: function () {
+      //   return {
+      //     delList: [
+      //       { key: '1', title: "课程1", del: false },
+      //       { key: '2', title: "课程2", del: true }]
+      //   }
+      // }
+    })
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          msg: 'Hello World1',
+          info: '',
+          list: [],
+          delList: [
+            { key: '1', title: "课程1", del: false },
+            { key: '2', title: "课程2", del: true }]
+
+        }
+      },
+      methods: {
+        btnClick: function () {
+          if (this.info) {
+            this.list = [...this.list, this.info];
+            this.info = ''
+          } else {
+            alert('请输入添加的内容');
+          }
+        },
+        delete1(key) {
+          console.log(key);
+          // this.msg = '123'
+          this.delList = this.delList.filter(item => item.key !== key)
+
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

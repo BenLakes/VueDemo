@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 组件</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+  <div id="app" class="app">
+   {{msg}}
+    <jspang :msg="msg"></jspang>
+  </div>
+
+  <script>
+    var city = {
+      props:['msg'],
+      template:`<div>XM of Fujian {{msg}}</div>`
+    };
+    var jspang = {  
+      props:["msg"],
+      template: `<div>
+          <p>Panda from XM</p>
+          <city :msg="msg"></city>
+        </div>`,
+        components:{
+          city: city
+        }
+    }
+     var app = new Vue({
+        el:'#app',
+        data:{
+          msg:'Hello Vue'
+        },
+        components:{
+            'jspang':jspang
+        }
+     });
+  </script>
+</body>
+</html>

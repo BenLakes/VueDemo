@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>插槽</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+</head>
+
+<body>
+  <div id="app">
+    <todo-list>
+      <todo-item v-for="item of delList" 
+      :key="item.key" :title="item.title" :del="item.del">
+      <!-- <template slot="pre-icon2.5" slot-scope="value">
+          <span>2.5前置图片,返回值{{value}}</span>
+      </template> -->
+      <template v-slot:pre-icon2.6="{value, a}">
+          <span>2.6前置图片，返回值value = {{value}}  a={{a}}</span>
+      </template>
+      <!-- <template slot="suf-icon2.5" slot-scope="value">
+          <span>{{value}}</span>
+      </template> -->
+      <template v-slot:suf-icon2.6="{value, value1}">
+          <span>{{value}} ---- {{value1}}</span>
+      </template>
+      </todo-item>
+    </todo-list>
+  </div>
+
+  <script>
+    Vue.component("todoItem",{
+      props:{
+        title: String,
+        del: Boolean,
+        key: String,
+      },
+      data(){
+        return {
+          a: 1,
+          value: "slotValue",
+          slotRandomVal: Math.random(),
+          slotRandomVal1: Math.random(),
+        }
+      },
+      methods: {
+        delContent(){
+          alert("del")
+        }
+      },
+      template: `<li>
+      <slot name="pre-icon2.6" :a="value" :value="slotRandomVal"></slot>
+       <span v-if="del">{{title}}</span>
+       <span v-else style="text-decoration: line-through">{{title}}</span>
+       <slot name="suf-icon2.6" :value1="slotRandomVal"></slot>
+       <button @click="delContent" v-show="del">{{title}}</button>
+      </li>`
+    });
+   Vue.component("todoList", {
+      template: `
+      <ul>
+      <slot></slot>
+      </ul>
+      `
+   });
+    var vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+          delList:[
+            {key: "1", title: "课程1", del: false},
+            {key: "2", title: "课程2", del: true}
+          ]
+        }
+      },
+   
+    });      
+  </script>
+</body>
+
+</html>

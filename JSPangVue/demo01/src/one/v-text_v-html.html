@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-text  v-html</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+   <div id="app">
+     <!--
+        使用 {{msg}} 显示数据有弊端 当网速很慢的时候   会直接显示{{XXX 属性名字}}
+        v-text 解决了这个问题
+    -->
+     <!-- {{msg}} -->
+     <span v-text="msg"></span>
+     <span v-text="htmlText"></span>
+     <span v-html="htmlText"></span>
+   </div>
+   <script type="text/javascript">
+      new Vue({
+        el: '#app',
+        data:{
+          msg: 'Hello World1',
+          htmlText: '<h2>html格式</h2>'
+        }
+      });
+   </script>
+</body>
+</html>

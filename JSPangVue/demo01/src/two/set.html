@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Set</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+  
+   <div id="app">
+     {{count}}
+     <br/>
+     <ul>
+       <li v-for="item of arr">{{item}}</li>
+     </ul>
+     <button onclick='setAdd()'>第一种修改方式</button>
+     <button onclick='appAdd()'>第二种修改方式</button>
+     <button onclick='outDataAdd()'>第三种修改方式</button>
+   </div>
+   <script type="text/javascript">
+   /*
+     Vue.set()  的作用就是在构造器外部 操作构造器内部的属性、方法或数据
+     引用构造器 外部 数据
+   */
+   var outData = {
+     count: 1,
+     goodName: 'car',
+     arr:['aaa','bbb','ccc']
+   };
+  /*  
+   在外部修改 数据的三种方法:
+     1. Vue.set  Vue.set(app.att, 1, 'ggg')  
+         set 修改数组数据能直接更新数据  set存在的意义
+     2. Vue 实例 app 修改  这种修改数据的方式不会更新 arr 数据
+     3. 直接使用外部数据修改  这种修改数据的方式不会更新 arr 数据
+   */
+  function setAdd(){
+    console.log('第一种修改方式');
+    // Vue.set(outData, 'count', outData.count + 1);
+    // app.arr[0] = 'fff';
+    Vue.set(app.arr,3,'ggg')
+  }
+  
+  function appAdd(){
+    console.log('第二种修改方式');
+    // app.count ++;
+    app.arr[0] = 'ddd';
+    // app.count ++;
+  }
+
+  function outDataAdd(){
+    console.log('第三种修改方式');
+    app.arr[2] = 'eee';
+    // outData.count++;
+  }
+
+    var app =  new Vue({
+        el: '#app',
+        data: outData
+      });
+   </script>
+</body>
+</html>

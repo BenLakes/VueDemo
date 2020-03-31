@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>install_event Demo</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{num}}
+    <button onclick="reduce()">调用原生后在调用 Vue 实例方法</button>
+    <button onclick="once()">调用原生后在调用 Vue 实例方法  只加一次</button>
+    <button onclick="off()">关闭事件</button>
+  </div>
+
+  <script>
+      var  app = new Vue({
+        el: "#app",
+        data:{
+          num: 1
+        }
+      })
+
+      function reduce(){
+          app.$emit('reduce');
+      }
+
+      app.$on('reduce', function(){
+         console.log('执行了 reduce()');
+         app.num ++;
+      });
+
+      function once() {
+        app.$emit('onceAdd')
+      }
+      app.$once("onceAdd", function(){
+        app.num++;
+      })
+
+      function off(){
+        app.$off('reduce');
+      }
+
+  </script>
+</body>
+</html>

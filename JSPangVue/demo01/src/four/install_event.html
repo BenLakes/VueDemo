@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello World</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+   <div id="app">
+     {{num}}
+     <button onclick='add()'>加1</button>
+     <button onclick='add3()'>加3</button>
+     <button onclick='off()'>关闭add方法 使其失效</button>
+   </div>
+   <script type="text/javascript">
+    /*
+      实例事件  是在构造器外部  写一个调用 构造器内部的方法
+    */
+     var app = new Vue({
+        el: '#app',
+        data:{
+          num: 1
+        },
+      });
+
+   
+     app.$on('add',function(){
+       console.log('执行加1');
+       this.num ++;
+     }); 
+
+     app.$once('add3',function(){
+       console.log('执行加3');
+       this.num = this.num + 3;
+     }); 
+
+     function add(){
+       app.$emit('add');
+     }
+
+     function add3(){
+       app.$emit('add3');
+     }
+  //  关闭某个方法
+     function off(){
+       app.$off('add');
+     }
+
+   </script>
+</body>
+</html>

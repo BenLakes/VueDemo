@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple todoList</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h3>简单todoList Demo</h3>
+    <hr />
+    <div>
+      <input type="text" v-model="inputVal"/>
+      <button @click="btnClick">提交</button>
+      <br/>
+      <ul v-for="(item, index) of list" key="item" >
+          <item :item="item" :index="index" @delete-item="deleteItem"></item>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    Vue.component("item", {
+      props: ["item", "index"],
+      template: `<li @click="liClick">{{item}}</li>`,
+      methods: {
+        liClick(){
+          this.$emit("delete-item", this.item)
+        }
+      },
+    })
+    var vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+          inputVal: "",
+          list: []
+        }
+      },
+      methods:{
+        btnClick(){
+           this.list = [...this.list, this.inputVal];
+           this.inputVal = "" 
+        },
+        deleteItem(item){
+            this.list = this.list.filter(temp => temp !== item)
+        }
+      }
+    });      
+  </script>
+</body>
+
+</html>

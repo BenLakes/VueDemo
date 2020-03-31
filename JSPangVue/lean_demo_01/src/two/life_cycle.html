@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life cycle Demo</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <!-- 全局 API 并不是在构造器里，
+    而是先声明全局变量  或 直接在 Vue 上定义一些新功能。 
+    -->
+  <div id="app">
+  {{count}}
+    <button @click="add">外部添加</button>
+  </div>
+
+  <script type="text/javascript">
+  
+ 
+     var vm =  new Vue({
+       el: "#app",
+       data(){
+         return {
+            count: 0
+         }
+       },
+       methods:{
+         add(){
+           this.count ++;
+         } 
+       },
+     
+     beforeCreate() {
+       console.log("beforeCreate");
+     },  
+
+     created () {
+      console.log("created");
+     },
+
+     beforeMount() {
+      console.log("beforeMount");
+     },
+    
+     mounted () {
+      console.log("mounted");
+     } ,
+
+     beforeUpdate() {
+      console.log("beforeUpdate");
+     },
+     updated () {
+      console.log("updated");
+     },
+
+     activated() {
+      console.log("activated");
+     },
+
+     deactivated() {
+      console.log("deactivated");
+     },
+
+     beforeDestroy() {
+      console.log("beforeDestroy");
+     },
+
+     destroyed() {
+      console.log("destroyed");
+     },
+
+
+
+
+     });
+  </script>
+</body>
+
+</html>

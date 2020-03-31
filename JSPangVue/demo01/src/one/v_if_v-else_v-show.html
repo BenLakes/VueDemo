@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v_if_v-else_v-show</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 
+      v-if 和 v-show的区别
+         v-if:判断是否加载，不会保留节点
+         v-show 调整CSS false = display: none 直接删除
+
+     -->
+    <div v-if="isLogin">你好，Lee</div>
+    <div v-else>请登录后操作</div>
+    <div v-show="isLogin">显示  Lee是否登录</div>
+    <button @click="changeLoginStatus">修改登录状态</button>
+</div>
+<script type="text/javascript">
+   new Vue({
+     el: '#app',
+     data:{
+      isLogin: false
+     },
+     methods:{
+       changeLoginStatus(){
+         this.isLogin = !this.isLogin
+       },
+     }
+   });
+</script>
+</body>
+</html>

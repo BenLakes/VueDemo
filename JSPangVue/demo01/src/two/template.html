@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3种template 模板语法</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+  <div id="app" class="app">
+   {{msg}}
+
+  </div>
+  <!-- 2. 写在tempalte 标签中的模板 -->
+  <template id="temp1">
+    <h2 style="color: red">我是template标签模板</h2>
+  </template>
+  <script type="x-template" id="temp2">
+    <h2 style="color: red">我是script标签模板</h2>
+  </script>
+  <script>
+     var app = new Vue({
+        el:'#app',
+        data:{
+          msg:'Hello Vue'
+        },
+        // template: `<h2 style="color: red">我是构造器内部选项模板</h2>`
+        template: '#temp2'
+     });
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component 03 动态组件</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <!-- 全局 API 并不是在构造器里，
+    而是先声明全局变量  或 直接在 Vue 上定义一些新功能。 
+    -->
+  <div id="app">
+    <component :is="who"></component>
+    <button @click="changeComponent">改变显示组件</button>
+  </div>
+ 
+  <script type="text/javascript">
+   var componentA = {
+     template: `<div>componentA</div>`
+   }
+   var componentB = {
+     template: `<div>componentB</div>`
+   }
+   var componentC = {
+     template: `<div>componentC</div>`
+   }
+    var vm = new Vue({
+      el: "#app",
+      components: {
+        componentA,
+        componentB,
+        componentC,
+      },
+      data() {
+        return {
+          who: "componentA"
+        }
+      },
+      methods: {
+        changeComponent() {
+          if (this.who === 'componentA') {
+            this.who = 'componentB'
+          } else if(this.who === 'componentB'){
+            this.who = 'componentC'
+          }else{
+            this.who = 'componentA'
+          }
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

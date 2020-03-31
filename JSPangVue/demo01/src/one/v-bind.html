@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-bind</title>
+  <style>
+    .classA{
+      color:red;
+      font-size: 10px;
+    }
+    .classB{
+      color: green;
+      font-size: 30px;
+    }
+  </style>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+  <!-- v-bind 处理 html 中标签属性绑定 -->
+   <div id="app">
+      <img :src="imgSrc" alt="1232"/>
+      <div :class="{classA:isOk}" @click='changeIsOk'>{{isOk}}</div>
+      <div :class="[classA,classB]" @click='changeIsOk'>{{isOk}}</div>
+      <div  :class="isOk?classA:classB" @click='changeIsOk'>{{isOk}}</div>
+      <div :style="{color:'pink',fontSize:'50px'}">{{isOk}}</div>
+      <div :style="styleObj">{{isOk}}</div>
+      <!-- v-pre 跳过vue编译  直接输出值  原样输出 -->
+      <div v-pre>{{msg1}}</div>
+      <!-- v-cloak 页面渲染完成后在显示这个值 -->
+      <div v-cloak>渲染完成后才显示这个dom</div>
+      <!-- v-once 第一次绑定值 渲染 后面就都不渲染了 -->
+      <input type="text" v-model="msg"/>
+      <div v-once>第一次绑定值  后面都不改变了{{msg}}</div>
+   </div>
+   <script type="text/javascript">
+      new Vue({
+        el: '#app',
+        data:{
+          msg: 'Hello World1',
+          imgSrc:'https://www.baidu.com/img/bd_logo.png',
+          isOk: false,
+          classA: 'classA',
+            classB: 'classB',
+          styleObj:{
+            fontSize:'60px',
+            color: 'yellow',
+          }
+        },
+        methods:{
+          changeIsOk(){
+            this.isOk = !this.isOk;
+          }
+        }
+      });
+   </script>
+</body>
+</html>

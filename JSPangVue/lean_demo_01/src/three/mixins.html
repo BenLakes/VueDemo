@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>min Demo</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    methods  用于编写Vue 实例的函数
+    -->
+  <div id="app">
+     {{num}} 
+    <br/>
+     <button @click="up">增加温度</button> 
+     <button @click="down">降低温度</button> 
+  </div>
+
+  <script type="text/javascript">
+
+// 全局的mixin  最先被调用
+  Vue.mixin({
+    beforeMount() {
+      console.log("全局的 beforeMount 发生更新 变化为"+this.num);
+    },
+    updated:function(){
+        console.log('我是全局被混入的'+ this.num);
+    }
+  })
+   
+  var  addLog = {
+    beforeMount() {
+      console.log("Mixins 中的 beforeMount 发生更新 变化为"+this.num);
+    },
+    updated () {
+      console.log("Mixins 中的 update 发生更新 变化为"+this.num);
+    },
+    
+  }
+
+    var vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+          num: 0,
+        }
+      },
+      methods: {
+        up(){
+          this.num = this.num +  5
+        },
+        down(){
+          this.num = this.num -  5
+        }
+      },
+      mixins: [addLog],
+      beforeMount() {
+      console.log("构造器 里面beforeMount");
+    },
+      updated () {
+        console.log("构造器 里面  的updated");
+        
+      }
+    })
+
+  </script>
+</body>
+
+</html>

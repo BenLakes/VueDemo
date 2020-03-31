@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <v-other></v-other> Demo
+  </title>
+  <script src="../../assets/vue.js"></script>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- v-bind 是处理 HTML 中的标签属性的 也是一个标签 -->
+  <div id="app">
+    <div v-pre>{{msg}}原样输出</div>
+    <!-- v-cloak 指令 来解决屏幕闪动 的问题  但在 工程化项目中  
+      组件的挂载使用路由加载  这时不需要 v-cloak   -->
+    <div v-cloak>{{msg}}</div>
+    <div v-once>{{onceMsg}}</div>
+    <div><input type="text" v-model="onceMsg"/></div>
+  </div>
+
+  <script type="text/javascript">
+    var vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+          msg: "v-pre 原样输出",
+          onceMsg: "once"
+        }
+      },
+      methods: {
+        changeLoginStatus() {
+          this.isLogin = !this.isLogin;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

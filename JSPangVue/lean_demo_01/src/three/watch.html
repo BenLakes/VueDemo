@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>methods Demo</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    methods  用于编写Vue 实例的函数
+    -->
+  <div id="app">
+    {{wdLabel}}适合  {{suggestionLabel}}
+    <br/>
+     <button @click="up">增加温度</button> 
+     <button @click="down">降低温度</button> 
+  </div>
+
+  <script type="text/javascript">
+   
+   var suggestion = [
+     "T恤短袖",
+     "夹克长裙",
+     "棉衣羽绒服"
+   ]
+
+    var vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+          wd: 10,
+          suggestionLabel: suggestion[1] 
+        }
+      },
+      methods: {
+        up(){
+          this.wd = this.wd +  5
+        },
+        down(){
+          this.wd = this.wd -  5
+        }
+      },
+      computed: {
+        wdLabel(){
+          return this.wd + " 度"
+        }
+      },
+      watch: {
+        wd(newVal){
+          if (newVal > 26) {
+            this.suggestionLabel = suggestion[0]
+          } else if (newVal < 26 && newVal > 0) {
+            this.suggestionLabel = suggestion[1]
+          }else{
+            this.suggestionLabel = suggestion[2]
+          }
+        }
+      },
+    })
+
+  </script>
+</body>
+
+</html>

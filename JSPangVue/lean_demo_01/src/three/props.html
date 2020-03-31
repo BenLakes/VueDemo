@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>propsData Demo</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    propsData  用于在 extends 传值使用
+    props 用于在组件中接收值使用
+    -->
+  <div id="app">
+    <header></header>
+  </div>
+ 
+  <script type="text/javascript">
+   var header_a = Vue.extend({
+     props:['a'],
+     data () {
+       return {
+         msg: "I' m extend  扩展"
+       };
+     },
+     template: `<div>{{msg}} ---- {{a}}</div>`
+   });
+
+   new header_a({propsData:{a: 'aaa'}}).$mount('header');
+   
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简单Vue Demo</title>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <div id="app">
+    {{msg}} {{msg + msg}}
+    <div :id="msg"></div>
+    <div>
+      <!-- <ul> -->
+        <!-- <todo-item v-for="item in list" 
+        :title="item.title"
+        :del="item.del"
+       ></todo-item> -->
+      <!-- </ul> -->
+      <todo-list></todo-list>
+    </div>
+  </div>
+  <script>
+    // todo-item
+    Vue.component("todo-item", {
+      props: {
+        title: String,
+        del: Boolean,
+        delete:Function
+      },
+      methods:{
+        handleClick(){
+          this.$emit('delete', this.title);
+        }
+      },
+      template: `
+      <li >
+          <span v-if="del">{{title}}</span>
+          <span v-else style="text-decoration: line-through;">{{title}}</span>
+          <button v-show="del" @click="handleClick">{{title}}</button>
+        </li>
+      `
+    });
+    // todo-list
+    Vue.component("todo-list", {
+      data: () => {
+        return {
+          list: [
+            { title: '课程1', del: false },
+            { title: '课程2', del: true },
+          ]
+        }
+      },
+      template: `
+         <ul>
+            <todo-item 
+            v-for="item in list" 
+            :title="item.title"
+            :del="item.del"
+            @delete="handleDelete"
+            >
+              </todo-item>
+          </ul>
+      `,
+      methods:{
+        handleDelete(title){
+          this.list = this.list.filter(item => item.title !== title);
+        }
+      }
+    })
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "Simple Demo",
+
+      }
+    })
+  </script>
+</body>
+
+</html>

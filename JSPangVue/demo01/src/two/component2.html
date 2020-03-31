@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 组件</title>
+  <script type="text/javascript" src="../../assets/vue.js"></script>
+</head>
+<body>
+  <div id="app" class="app">
+   {{msg}}
+    <jspang city="上海"></jspang>
+    <global city="厦门" area="湖里"></global>
+    <local here="China"></local>
+    <!-- 把构造器 data 中的值传递给 props 使用 v-bind -->
+     <local :here="msg"></local>
+  </div>
+
+  <script>
+    /*
+      组件 props 传值问题
+    */
+   var JSpang = Vue.component('jspang',{
+     props:['city', 'area'],
+     template: `<div style="color:red">全局化注册的jspang标签,来自{{city}},区{{area}}</div>`
+   })
+     var app = new Vue({
+        el:'#app',
+        data:{
+          msg:'Hello Vue'
+        },
+        components:{
+          'global': JSpang, //引用全局的组件
+          'local': {
+            props:{here: String},
+            template: `<div style="color:green">I'm from {{here}}</div>`
+          }
+        }
+     });
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>extends Demo</title>
+  <script src="../../assets/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    methods  用于编写Vue 实例的函数
+    -->
+  <div id="app">
+    ${num}
+    <br />
+    <button @click="add">增加温度</button>
+    <button @click="down">降低温度</button>
+  </div>
+
+  <script type="text/javascript">
+
+
+    var bbb = {
+      created() {
+        console.log("我是被扩展出来的");
+      },
+      methods: {
+        add: function () {
+          console.log('我是被扩展出来的方法！');
+        }
+      },
+      beforeMount() {
+        console.log("Mixins 中的 beforeMount 发生更新 变化为" + this.num);
+      },
+      updated() {
+        console.log("Mixins 中的 update 发生更新 变化为" + this.num);
+      },
+      delimiters:["${","}"]
+    }
+
+    var vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+          num: 0,
+        }
+      },
+      methods: {
+        up() {
+          this.num = this.num + 5
+        },
+        down() {
+          this.num = this.num - 5
+        },
+        // add(){
+        //   console.log("我是原生方法")
+        // }
+      },
+      extends: bbb,
+      beforeMount() {
+        console.log("构造器 里面beforeMount");
+      },
+      updated() {
+        console.log("构造器 里面  的updated");
+
+      }
+    })
+
+  </script>
+</body>
+
+</html>
